@@ -1,5 +1,6 @@
 import React from 'react'
-import { LeafPoll, Result } from 'react-leaf-polls'
+// @ts-ignore
+import { LeafPoll, Result } from 'react-leaf-polls-protodo'
 import 'react-leaf-polls/dist/index.css'
 
 const resData = [
@@ -16,10 +17,15 @@ const resData2 = [
 const themeData = {
   textColor: '#19181f',
   mainColor: '#00B87B',
-  backgroundColor: 'white',
+  otherColor: '#afafaf',
+  backgroundColor: '#555',
+  answerTextLeftColor: 'black',
+  answerTextRightColor: 'black',
   alignment: 'center',
   leftColor: '#00B87B',
-  rightColor: '#FF2E00'
+  rightColor: '#FF2E00',
+  answerTextColor: 'black',
+  answerPercentageColor: 'black',
 }
 
 function vote(item: Result, results: Result[]) {

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { BinaryPoll, BinaryPollProps } from './components/BinaryPoll/BinaryPoll'
 import {
   MultiplePoll,

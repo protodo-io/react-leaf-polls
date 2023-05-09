@@ -1,6 +1,7 @@
 import { RefObject } from 'react'
 import { Result } from '../../types/result'
 import styles from './BinaryPoll.module.css'
+import { Theme } from '../../types/theme'
 
 function manageVote(
   results: Result[],
@@ -16,7 +17,8 @@ function manageVote(
 function animateAnswers(
   index: number,
   results: Result[],
-  refs: RefObject<HTMLDivElement>[]
+  refs: RefObject<HTMLDivElement>[],
+  theme?: Theme
 ): void {
   const answer: HTMLElement | null = refs[index].current
   // get not clicked answer element
@@ -45,13 +47,16 @@ function animateAnswers(
 
     // animate background color
     answer.animate(
-      [{ backgroundColor: 'white' }, { backgroundColor: '#efefef' }],
+      [
+        { backgroundColor: 'white' },
+        { backgroundColor: theme?.otherColor || '#9F9F9F' }
+      ],
       200
     )
-    answer.style.backgroundColor = '#EFEFEF'
+    answer.style.backgroundColor = theme?.otherColor || '#9F9F9F'
 
-    // set height to the same value before and after the vote
-    const height: number = answer.offsetHeight
+    // // set height to the same value before and after the vote
+    // const height: number = answer.offsetHeight
     answer.style.padding = '0'
     anotherAnswer.style.padding = '0'
 
@@ -59,8 +64,8 @@ function animateAnswers(
     answer.classList.remove(styles.answer_hover)
     anotherAnswer.classList.remove(styles.answer_hover)
 
-    const inner: HTMLElement | null = refs[0].current
-    if (inner) inner.style.height = `${height}px`
+    // const inner: HTMLElement | null = refs[0].current
+    // if (inner) inner.style.height = `${height}px`
   }
 }
 

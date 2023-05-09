@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, createRef, RefObject } from 'react'
+import React, { createRef, RefObject, useEffect, useRef, useState } from 'react'
 import styles from './MultiplePoll.module.css'
-import { manageVote, countPercentage, animateAnswers } from './utils'
-//import { manageVote } from './utils'
+import { animateAnswers, countPercentage, manageVote } from './utils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -11,6 +10,7 @@ interface MultiplePollProps {
   theme?: Theme
   isVoted?: boolean
   isVotedId?: number
+
   onVote?(item: Result, results: Result[]): void
 }
 
@@ -20,7 +20,7 @@ const MultiplePoll = ({
   theme,
   onVote,
   isVoted,
-  isVotedId,
+  isVotedId
 }: MultiplePollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
   const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
@@ -40,7 +40,17 @@ const MultiplePoll = ({
       className={styles.container}
       style={{ alignItems: theme?.alignment }}
     >
-      {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
+      {question && (
+        <h1
+          style={{
+            color: theme?.textColor,
+            marginBottom: '1rem',
+            fontSize: '1.4rem'
+          }}
+        >
+          {question}
+        </h1>
+      )}
 
       {results.map((result) => (
         <div
@@ -65,10 +75,10 @@ const MultiplePoll = ({
             ref={answerRefs.current[result.id]}
             className={styles.answerInner}
           >
-            <p style={{ color: theme?.textColor }}>{result.text}</p>
+            <p style={{ color: theme?.answerTextColor }}>{result.text}</p>
           </div>
           {voted && (
-            <span style={{ color: theme?.textColor }}>
+            <span style={{ color: theme?.answerPercentageColor }}>
               {result.percentage}%
             </span>
           )}

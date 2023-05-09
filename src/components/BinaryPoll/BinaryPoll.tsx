@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, RefObject } from 'react'
+import React, { RefObject, useEffect, useRef, useState } from 'react'
 import styles from './BinaryPoll.module.css'
-import { manageVote, countPercentage, animateAnswers } from './utils'
+import { animateAnswers, countPercentage, manageVote } from './utils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -10,6 +10,7 @@ interface BinaryPollProps {
   results: Result[]
   theme?: Theme
   isVoted?: boolean
+
   onVote?(item: Result, results: Result[]): void
 }
 
@@ -33,7 +34,7 @@ const BinaryPoll = ({
   useEffect(() => {
     if (isVoted) {
       countPercentage(results)
-      animateAnswers(0, results, allRefs)
+      animateAnswers(0, results, allRefs, theme)
       setVoted(true)
     }
   }, [])
@@ -43,7 +44,17 @@ const BinaryPoll = ({
       className={styles.container}
       style={{ alignItems: theme?.alignment }}
     >
-      {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
+      {question && (
+        <h1
+          style={{
+            color: theme?.textColor,
+            marginBottom: '1rem',
+            fontSize: '1.4rem'
+          }}
+        >
+          {question}
+        </h1>
+      )}
 
       <div
         ref={answersContainer}
@@ -54,6 +65,10 @@ const BinaryPoll = ({
           ref={answer0}
           role='button'
           className={styles.answer_hover + ' ' + styles.answer}
+          style={{
+            backgroundColor: theme?.leftColor,
+            color: theme?.answerTextLeftColor
+          }}
           id='binAnswer0'
           onClick={() => {
             if (!voted) {
@@ -64,7 +79,7 @@ const BinaryPoll = ({
           }}
         >
           <div className={styles.answerContainer}>
-            <p style={{ color: theme?.leftColor }}>{results[0].text}</p>
+            <p>{results[0].text}</p>
             {voted && (
               <span style={{ color: theme?.textColor }}>
                 {results[0].percentage}%
@@ -76,6 +91,10 @@ const BinaryPoll = ({
           ref={answer1}
           role='button'
           className={styles.answer_hover + ' ' + styles.answer}
+          style={{
+            backgroundColor: theme?.rightColor,
+            color: theme?.answerTextRightColor
+          }}
           id='binAnswer1'
           onClick={() => {
             if (!voted) {
@@ -86,7 +105,7 @@ const BinaryPoll = ({
           }}
         >
           <div className={styles.answerContainer}>
-            <p style={{ color: theme?.rightColor }}>{results[1].text}</p>
+            <p>{results[1].text}</p>
             {voted && (
               <span style={{ color: theme?.textColor }}>
                 {results[1].percentage}%
