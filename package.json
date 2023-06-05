@@ -1,6 +1,6 @@
 {
-  "name": "react-leaf-polls-protodo",
-  "version": "1.1.10",
+  "name": "@protodo-io/react-leaf-polls-protodo",
+  "version": "1.1.12",
   "description": "Customizable set of poll components for react.",
   "author": "protodo-io",
   "license": "MIT",

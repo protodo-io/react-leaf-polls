@@ -67,7 +67,8 @@ const BinaryPoll = ({
           className={styles.answer_hover + ' ' + styles.answer}
           style={{
             backgroundColor: theme?.leftColor,
-            color: theme?.answerTextLeftColor
+            color: theme?.answerTextLeftColor,
+            minWidth: '150px'
           }}
           id='binAnswer0'
           onClick={() => {
@@ -79,7 +80,16 @@ const BinaryPoll = ({
           }}
         >
           <div className={styles.answerContainer}>
-            <p>{results[0].text}</p>
+            <p
+              title={results[0].text}
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}
+            >
+              {results[0].text}
+            </p>
             {voted && (
               <span style={{ color: theme?.textColor }}>
                 {results[0].percentage}%
@@ -93,7 +103,8 @@ const BinaryPoll = ({
           className={styles.answer_hover + ' ' + styles.answer}
           style={{
             backgroundColor: theme?.rightColor,
-            color: theme?.answerTextRightColor
+            color: theme?.answerTextRightColor,
+            minWidth: '150px'
           }}
           id='binAnswer1'
           onClick={() => {
@@ -105,7 +116,16 @@ const BinaryPoll = ({
           }}
         >
           <div className={styles.answerContainer}>
-            <p>{results[1].text}</p>
+            <p
+              title={results[1].text}
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}
+            >
+              {results[1].text}
+            </p>
             {voted && (
               <span style={{ color: theme?.textColor }}>
                 {results[1].percentage}%
