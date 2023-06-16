@@ -11,4 +11,7 @@ export interface Theme {
   backgroundColor?: string
   // alignment?: 'start' | 'center' | 'end'
   alignment?: string
+  consensusSimpleLeft: string
+  consensusSimpleMiddle: string
+  consensusSimpleRight: string
 }

@@ -14,18 +14,11 @@ function manageVote(
   animateAnswers(index, results, refs)
 }
 
-function animateAnswers(
-  index: number,
-  results: Result[],
-  refs: RefObject<HTMLDivElement>[],
-  theme?: Theme
-): void {
-  const answer: HTMLElement | null = refs[index].current
-  // get not clicked answer element
-  const oppositeIndex: number = index === 0 ? 1 : 0
-  const anotherAnswer: HTMLElement | null = refs[oppositeIndex].current
-  const percentage: number | undefined = results[index].percentage
-
+function animateWidth(
+  answer: HTMLElement | null,
+  anotherAnswer: HTMLElement | null,
+  percentage: number | undefined
+) {
   if (answer && anotherAnswer && percentage) {
     // animate background width
     answer.animate(
@@ -42,9 +35,13 @@ function animateAnswers(
       ],
       500
     )
-    answer.style.width = `${percentage}%`
-    anotherAnswer.style.width = `${100 - percentage}%`
+    Object.assign(answer.style, { width: `${percentage}%` })
+    Object.assign(anotherAnswer.style, { width: `${100 - percentage}%` })
+  }
+}
 
+function animateColor(answer: HTMLElement | null, theme: Theme | undefined) {
+  if (answer && theme) {
     // animate background color
     answer.animate(
       [
@@ -53,19 +50,49 @@ function animateAnswers(
       ],
       200
     )
-    answer.style.backgroundColor = theme?.otherColor || '#9F9F9F'
+    Object.assign(answer.style, {
+      backgroundColor: theme?.otherColor || '#9F9F9F'
+    })
+  }
+}
 
-    // // set height to the same value before and after the vote
-    // const height: number = answer.offsetHeight
-    answer.style.padding = '0'
-    anotherAnswer.style.padding = '0'
-
+function disableHover(
+  answer: HTMLElement | null,
+  anotherAnswer: HTMLElement | null,
+  styles: { [x: string]: string; answer_hover?: any }
+) {
+  if (answer && anotherAnswer) {
     // disable hovering after the animation
     answer.classList.remove(styles.answer_hover)
     anotherAnswer.classList.remove(styles.answer_hover)
+  }
+}
 
-    // const inner: HTMLElement | null = refs[0].current
-    // if (inner) inner.style.height = `${height}px`
+function animateAnswers(
+  index: number,
+  results: Result[],
+  refs: RefObject<HTMLDivElement>[],
+  theme?: Theme
+): void {
+  const answer: HTMLElement | null = refs[index].current
+  // get not clicked answer element
+  const oppositeIndex: number = index === 0 ? 1 : 0
+  const anotherAnswer: HTMLElement | null = refs[oppositeIndex].current
+  const percentage: number | undefined = results[index].percentage
+
+  if (results.length !== 2) {
+    throw new Error('Expected exactly two results')
+  }
+
+  if (answer && anotherAnswer && percentage) {
+    animateWidth(answer, anotherAnswer, percentage)
+    animateColor(answer, theme)
+
+    // set padding to 0
+    Object.assign(answer.style, { padding: '0' })
+    Object.assign(anotherAnswer.style, { padding: '0' })
+
+    disableHover(answer, anotherAnswer, styles)
   }
 }
 

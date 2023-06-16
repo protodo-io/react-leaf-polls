@@ -10,8 +10,9 @@ interface MultiplePollProps {
   theme?: Theme
   isVoted?: boolean
   isVotedId?: number
-
+  consensusReachedAt: number
   onVote?(item: Result, results: Result[]): void
+  onClick?(item: Result | undefined): void
 }
 
 const MultiplePoll = ({
@@ -19,6 +20,7 @@ const MultiplePoll = ({
   results,
   theme,
   onVote,
+  onClick,
   isVoted,
   isVotedId
 }: MultiplePollProps) => {
@@ -51,7 +53,6 @@ const MultiplePoll = ({
           {question}
         </h1>
       )}
-
       {results.map((result) => (
         <div
           key={result.id}
@@ -68,13 +69,12 @@ const MultiplePoll = ({
               setVoted(true)
               manageVote(results, result, answerRefs, theme)
               onVote?.(result, results)
+            } else {
+              onClick?.(result)
             }
           }}
         >
-          <div
-            ref={answerRefs.current[result.id]}
-            className={styles.answerInner}
-          >
+          <div className={styles.answerInner}>
             <p style={{ color: theme?.answerTextColor }}>{result.text}</p>
           </div>
           {voted && (

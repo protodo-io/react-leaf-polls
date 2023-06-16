@@ -1,7 +1,7 @@
 import React from 'react'
 // @ts-ignore
 import { LeafPoll, Result } from 'react-leaf-polls-protodo'
-import 'react-leaf-polls/dist/index.css'
+import 'react-leaf-polls-protodo/dist/index.css'
 
 const resData = [
   { id: 0, text: 'YES', votes: 3 },
@@ -25,7 +25,7 @@ const themeData = {
   leftColor: '#00B87B',
   rightColor: '#FF2E00',
   answerTextColor: 'black',
-  answerPercentageColor: 'black',
+  answerPercentageColor: 'black'
 }
 
 function vote(item: Result, results: Result[]) {

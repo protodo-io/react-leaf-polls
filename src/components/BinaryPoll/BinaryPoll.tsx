@@ -10,8 +10,9 @@ interface BinaryPollProps {
   results: Result[]
   theme?: Theme
   isVoted?: boolean
-
+  consensusReachedAt: number
   onVote?(item: Result, results: Result[]): void
+  onClick?(item: Result | undefined): void
 }
 
 const BinaryPoll = ({
@@ -19,6 +20,7 @@ const BinaryPoll = ({
   results,
   theme,
   onVote,
+  onClick,
   isVoted
 }: BinaryPollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
@@ -76,6 +78,8 @@ const BinaryPoll = ({
               setVoted(true)
               manageVote(results, results[0], 0, allRefs)
               onVote?.(results[0], results)
+            } else {
+              onClick?.(results[0])
             }
           }}
         >
@@ -112,6 +116,8 @@ const BinaryPoll = ({
               setVoted(true)
               manageVote(results, results[1], 1, allRefs)
               onVote?.(results[1], results)
+            } else {
+              onClick?.(results[1])
             }
           }}
         >
