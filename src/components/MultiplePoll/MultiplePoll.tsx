@@ -29,7 +29,6 @@ const MultiplePoll = ({
   whoVotedWhat
 }: MultiplePollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
-  console.log('*** KIGA-LOG => results', results)
   const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
     results.map(() => createRef<HTMLDivElement>())
   )
@@ -74,7 +73,6 @@ const MultiplePoll = ({
               if (!voted) {
                 setVoted(true)
                 manageVote(results, result, answerRefs, theme)
-                console.log('*** KIGA-LOG =>', 'ON VOTE', result)
                 onVote?.(result, results)
               } else {
                 onClick?.(result)
