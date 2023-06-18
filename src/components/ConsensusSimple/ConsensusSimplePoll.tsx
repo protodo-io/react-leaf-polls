@@ -10,6 +10,8 @@ interface ConsensusSimplePollProps {
   theme?: Theme
   isVoted?: boolean
   consensusReachedAt: number
+  isSecretPoll: boolean
+  whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
   onClick?(item: Result | undefined): void
 }

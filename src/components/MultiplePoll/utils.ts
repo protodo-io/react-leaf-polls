@@ -10,7 +10,7 @@ function manageVote(
 ): void {
   item.votes++
   countPercentage(results)
-  animateAnswers(results, refs, theme, item.id)
+  animateAnswers(results, refs, theme, undefined, item.id)
 }
 
 function animateAnswers(

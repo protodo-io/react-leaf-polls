@@ -31,7 +31,9 @@ const LeafPoll = ({
   onVote,
   isVoted = false,
   isVotedId,
-  consensusReachedAt
+  consensusReachedAt,
+  whoVotedWhat,
+  isSecretPoll = true
 }: Props) => {
   switch (type) {
     case POLL_TYPES.binary:
@@ -43,6 +45,8 @@ const LeafPoll = ({
           onVote={onVote}
           isVoted={isVoted}
           consensusReachedAt={consensusReachedAt}
+          whoVotedWhat={whoVotedWhat}
+          isSecretPoll={isSecretPoll}
         />
       )
     case POLL_TYPES.consensusSimple:
@@ -54,6 +58,8 @@ const LeafPoll = ({
           onVote={onVote}
           isVoted={isVoted}
           consensusReachedAt={consensusReachedAt}
+          whoVotedWhat={whoVotedWhat}
+          isSecretPoll={isSecretPoll}
         />
       )
     case POLL_TYPES.consensusComplex:
@@ -66,6 +72,8 @@ const LeafPoll = ({
           isVoted={isVoted}
           isVotedId={isVotedId}
           consensusReachedAt={consensusReachedAt}
+          whoVotedWhat={whoVotedWhat}
+          isSecretPoll={isSecretPoll}
         />
       )
     case POLL_TYPES.multiple:
@@ -79,6 +87,8 @@ const LeafPoll = ({
           isVoted={isVoted}
           isVotedId={isVotedId}
           consensusReachedAt={consensusReachedAt}
+          whoVotedWhat={whoVotedWhat}
+          isSecretPoll={isSecretPoll}
         />
       )
   }

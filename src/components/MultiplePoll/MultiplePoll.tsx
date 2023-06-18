@@ -11,6 +11,8 @@ interface MultiplePollProps {
   isVoted?: boolean
   isVotedId?: number
   consensusReachedAt: number
+  isSecretPoll: boolean
+  whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
   onClick?(item: Result | undefined): void
 }
@@ -22,9 +24,12 @@ const MultiplePoll = ({
   onVote,
   onClick,
   isVoted,
-  isVotedId
+  isVotedId,
+  isSecretPoll,
+  whoVotedWhat
 }: MultiplePollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
+  console.log('*** KIGA-LOG => results', results)
   const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
     results.map(() => createRef<HTMLDivElement>())
   )
@@ -53,36 +58,49 @@ const MultiplePoll = ({
           {question}
         </h1>
       )}
-      {results.map((result) => (
-        <div
-          key={result.id}
-          role='button'
-          id={'mulAnswer' + result.id}
-          className={
-            voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
-          }
-          style={{
-            backgroundColor: theme?.backgroundColor
-          }}
-          onClick={() => {
-            if (!voted) {
-              setVoted(true)
-              manageVote(results, result, answerRefs, theme)
-              onVote?.(result, results)
-            } else {
-              onClick?.(result)
+      {results.map((result, index) => (
+        <React.Fragment>
+          <div
+            key={result.id}
+            role='button'
+            id={'mulAnswer' + result.id}
+            className={
+              voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
             }
-          }}
-        >
-          <div className={styles.answerInner}>
-            <p style={{ color: theme?.answerTextColor }}>{result.text}</p>
+            style={{
+              backgroundColor: theme?.backgroundColor
+            }}
+            onClick={() => {
+              if (!voted) {
+                setVoted(true)
+                manageVote(results, result, answerRefs, theme)
+                console.log('*** KIGA-LOG =>', 'ON VOTE', result)
+                onVote?.(result, results)
+              } else {
+                onClick?.(result)
+              }
+            }}
+          >
+            <div
+              ref={answerRefs.current[result.id]}
+              className={styles.answerInner}
+            >
+              <p style={{ color: theme?.answerTextColor }}>{result.text}</p>
+              {voted && (
+                <span style={{ color: theme?.answerPercentageColor }}>
+                  {result.percentage}%
+                </span>
+              )}
+            </div>
           </div>
-          {voted && (
-            <span style={{ color: theme?.answerPercentageColor }}>
-              {result.percentage}%
-            </span>
+          {voted && !isSecretPoll && (
+            <div className={styles.whoVotedWhatContainer}>
+              {whoVotedWhat[index].map((Component, i) => (
+                <React.Fragment key={i}>{Component}</React.Fragment>
+              ))}
+            </div>
           )}
-        </div>
+        </React.Fragment>
       ))}
     </article>
   )

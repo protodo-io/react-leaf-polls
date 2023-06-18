@@ -8,9 +8,9 @@
   width: 100%;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
-  -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
   position: relative;
   transition: background-color 0.3s ease-out;
 }
@@ -25,7 +25,6 @@
   left: 0;
   margin: 0;
   height: 100%;
-  /* border-radius: 0.5rem; */
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   text-align: left;
@@ -40,4 +39,25 @@
   right: 1rem;
   top: 25%;
   font-size: 1.2rem;
+}
+
+[id^='mulAnswer'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.answerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.whoVotedWhatContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+  margin-top: -1rem;
 }

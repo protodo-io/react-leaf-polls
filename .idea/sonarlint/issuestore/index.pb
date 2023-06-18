@@ -15,9 +15,5 @@ I
 example/src/setupTests.ts,d/8/d80a6ca0d47050951d4a73f640c62d04d731245b
 E
 example/src/index.css,f/d/fd1a2d27cabbd037bbdd8c3400f6763d2c83693a
-c
-3src/components/MultiplePoll/MultiplePoll.module.css,c/c/cc3ac239740a0784f6659bd35c38850de41b78c0
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-T
-$src/components/MultiplePoll/utils.ts,1/3/13af28e473937c6407ecda83263a38cccca1d1a7

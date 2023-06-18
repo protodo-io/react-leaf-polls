@@ -11,6 +11,8 @@ interface ConsensusComplexProps {
   isVoted?: boolean
   isVotedId?: number
   consensusReachedAt: number
+  isSecretPoll: boolean
+  whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
   onClick?(item: Result | undefined): void
 }
@@ -23,7 +25,9 @@ const ConsensusComplexPoll = ({
   onVote,
   onClick,
   isVotedId,
-  consensusReachedAt
+  consensusReachedAt,
+  whoVotedWhat,
+  isSecretPoll
 }: ConsensusComplexProps) => {
   const [voted, setVoted] = useState<boolean>(false)
   // const [average, setAverage] = useState<number>(0)
@@ -94,6 +98,7 @@ const ConsensusComplexPoll = ({
     }
   }
 
+  // @ts-ignore
   return (
     <article
       className={styles.container}
@@ -103,8 +108,8 @@ const ConsensusComplexPoll = ({
         <h1
           style={{
             color: theme?.textColor,
-            marginBottom: '2.5rem',
-            fontSize: '1.4rem'
+            marginBottom: '3rem',
+            fontSize: '1.8rem'
           }}
         >
           {question}
@@ -121,7 +126,6 @@ const ConsensusComplexPoll = ({
         >
           <span className={styles.consensusReachedAtIndicatorText}>MIN</span>
         </div>
-        {/*<div className={styles.sliderButtonDiv}>*/}
         <input
           type='range'
           min='0'
@@ -144,12 +148,18 @@ const ConsensusComplexPoll = ({
         <div className={styles.labelsContainer}>
           {results.map((option, index) => (
             <div key={index} className={styles.sliderLabelContainer}>
+              <div className={styles.voteCount}>{option.percentage} %</div>
               <span
                 className={styles.sliderLabel}
                 style={{ color: theme?.textColor }}
               >
                 {option.text}
               </span>
+
+              {!isSecretPoll &&
+                whoVotedWhat[index].map((Component, i) => (
+                  <React.Fragment key={i}>{Component}</React.Fragment>
+                ))}
             </div>
           ))}
         </div>
