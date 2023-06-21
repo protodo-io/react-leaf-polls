@@ -14,7 +14,7 @@ interface BinaryPollProps {
   isSecretPoll: boolean
   whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
-  onClick?(item: Result | undefined): void
+  onClickAfterVote?(item: Result | undefined): void
 }
 
 const BinaryPoll = ({
@@ -22,8 +22,10 @@ const BinaryPoll = ({
   results,
   theme,
   onVote,
-  onClick,
-  isVoted
+  onClickAfterVote,
+  isVoted,
+  isSecretPoll,
+  whoVotedWhat
 }: BinaryPollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
   const answersContainer = useRef<HTMLDivElement>(null)
@@ -81,7 +83,7 @@ const BinaryPoll = ({
               manageVote(results, results[0], 0, allRefs)
               onVote?.(results[0], results)
             } else {
-              onClick?.(results[0])
+              onClickAfterVote?.(results[0])
             }
           }}
         >
@@ -97,7 +99,7 @@ const BinaryPoll = ({
               {results[0].text}
             </p>
             {voted && (
-              <span style={{ color: theme?.textColor }}>
+              <span style={{ color: theme?.answerTextRightColor }}>
                 {results[0].percentage}%
               </span>
             )}
@@ -119,7 +121,7 @@ const BinaryPoll = ({
               manageVote(results, results[1], 1, allRefs)
               onVote?.(results[1], results)
             } else {
-              onClick?.(results[1])
+              onClickAfterVote?.(results[1])
             }
           }}
         >
@@ -135,12 +137,26 @@ const BinaryPoll = ({
               {results[1].text}
             </p>
             {voted && (
-              <span style={{ color: theme?.textColor }}>
+              <span style={{ color: theme?.answerTextLeftColor }}>
                 {results[1].percentage}%
               </span>
             )}
           </div>
         </div>
+      </div>
+      <div className={styles.votersList}>
+        {voted &&
+          !isSecretPoll &&
+          whoVotedWhat.map((vote, i) => (
+            <div key={i}>
+              <h3 style={{ color: theme?.textColor }}>{results[i].text}:</h3>
+              {results[i].votes > 0 ? (
+                <div className={styles.votersWrapper}>{vote}</div>
+              ) : (
+                <div className={styles.votersWrapper}>-</div>
+              )}
+            </div>
+          ))}
       </div>
     </article>
   )

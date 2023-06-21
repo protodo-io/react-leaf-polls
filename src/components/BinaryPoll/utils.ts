@@ -40,18 +40,35 @@ function animateWidth(
   }
 }
 
-function animateColor(answer: HTMLElement | null, theme: Theme | undefined) {
-  if (answer && theme) {
-    // animate background color
+function animateColor(
+  answer: HTMLElement | null,
+  anotherAnswer: HTMLElement | null,
+  answerColor: string | undefined,
+  anotherAnswerColor: string | undefined
+) {
+  console.log('*** KIGA-LOG => answer', answer)
+  console.log('*** KIGA-LOG => color', answerColor)
+  if (answer && anotherAnswer && answerColor && answerColor) {
     answer.animate(
       [
         { backgroundColor: 'white' },
-        { backgroundColor: theme?.otherColor || '#9F9F9F' }
+        { backgroundColor: answerColor || '#9F9F9F' }
+      ],
+      200
+    )
+    anotherAnswer.animate(
+      [
+        { backgroundColor: 'white' },
+        { backgroundColor: anotherAnswerColor || '#9F9F9F' }
       ],
       200
     )
     Object.assign(answer.style, {
-      backgroundColor: theme?.otherColor || '#9F9F9F'
+      backgroundColor: answerColor || '#9F9F9F'
+    })
+
+    Object.assign(anotherAnswer.style, {
+      backgroundColor: anotherAnswerColor || '#9F9F9F'
     })
   }
 }
@@ -84,9 +101,11 @@ function animateAnswers(
     throw new Error('Expected exactly two results')
   }
 
+  const answerColors = [theme?.leftColor, theme?.rightColor]
+
   if (answer && anotherAnswer && percentage) {
     animateWidth(answer, anotherAnswer, percentage)
-    animateColor(answer, theme)
+    animateColor(answer, anotherAnswer, answerColors[0], answerColors[1])
 
     // set padding to 0
     Object.assign(answer.style, { padding: '0' })

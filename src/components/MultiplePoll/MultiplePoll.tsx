@@ -14,7 +14,7 @@ interface MultiplePollProps {
   isSecretPoll: boolean
   whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
-  onClick?(item: Result | undefined): void
+  onClickAfterVote?(item: Result | undefined): void
 }
 
 const MultiplePoll = ({
@@ -22,7 +22,7 @@ const MultiplePoll = ({
   results,
   theme,
   onVote,
-  onClick,
+  onClickAfterVote,
   isVoted,
   isVotedId,
   isSecretPoll,
@@ -57,49 +57,55 @@ const MultiplePoll = ({
           {question}
         </h1>
       )}
-      {results.map((result, index) => (
-        <React.Fragment>
-          <div
-            key={result.id}
-            role='button'
-            id={'mulAnswer' + result.id}
-            className={
-              voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
-            }
-            style={{
-              backgroundColor: theme?.backgroundColor
-            }}
-            onClick={() => {
-              if (!voted) {
-                setVoted(true)
-                manageVote(results, result, answerRefs, theme)
-                onVote?.(result, results)
-              } else {
-                onClick?.(result)
-              }
-            }}
-          >
+      {results.map((result, index) => {
+        const textColor =
+          result.id === isVotedId ? theme?.answerTextColor : theme?.textColor
+        return (
+          <React.Fragment>
             <div
-              ref={answerRefs.current[result.id]}
-              className={styles.answerInner}
+              key={result.id}
+              role='button'
+              id={'mulAnswer' + result.id}
+              className={
+                voted
+                  ? styles.answer
+                  : styles.answer_hover + ' ' + styles.answer
+              }
+              style={{
+                backgroundColor: theme?.backgroundColor
+              }}
+              onClick={() => {
+                if (!voted) {
+                  setVoted(true)
+                  manageVote(results, result, answerRefs, theme)
+                  onVote?.(result, results)
+                } else {
+                  onClickAfterVote?.(result)
+                }
+              }}
             >
-              <p style={{ color: theme?.answerTextColor }}>{result.text}</p>
-              {voted && (
-                <span style={{ color: theme?.answerPercentageColor }}>
-                  {result.percentage}%
-                </span>
-              )}
+              <div
+                ref={answerRefs.current[result.id]}
+                className={styles.answerInner}
+              >
+                <p style={{ color: textColor }}>{result.text}</p>
+                {voted && (
+                  <span style={{ color: theme?.answerPercentageColor }}>
+                    {result.percentage}%
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-          {voted && !isSecretPoll && (
-            <div className={styles.whoVotedWhatContainer}>
-              {whoVotedWhat[index].map((Component, i) => (
-                <React.Fragment key={i}>{Component}</React.Fragment>
-              ))}
-            </div>
-          )}
-        </React.Fragment>
-      ))}
+            {voted && !isSecretPoll && (
+              <div className={styles.whoVotedWhatContainer}>
+                {whoVotedWhat[index].map((Component, i) => (
+                  <React.Fragment key={i}>{Component}</React.Fragment>
+                ))}
+              </div>
+            )}
+          </React.Fragment>
+        )
+      })}
     </article>
   )
 }

@@ -13,7 +13,7 @@ interface ConsensusSimplePollProps {
   isSecretPoll: boolean
   whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
-  onClick?(item: Result | undefined): void
+  onClickAfterVote?(item: Result | undefined): void
 }
 
 const ConsensusSimplePoll = ({
@@ -21,8 +21,10 @@ const ConsensusSimplePoll = ({
   results,
   theme,
   onVote,
-  onClick,
-  isVoted
+  onClickAfterVote,
+  isVoted,
+  isSecretPoll,
+  whoVotedWhat
 }: ConsensusSimplePollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
   const answersContainer = useRef<HTMLDivElement>(null)
@@ -50,7 +52,7 @@ const ConsensusSimplePoll = ({
       manageVote(results, results[index], allRefs)
       onVote?.(results[index], results)
     } else {
-      onClick?.(results[index])
+      onClickAfterVote?.(results[index])
     }
   }
 
@@ -98,13 +100,28 @@ const ConsensusSimplePoll = ({
               </p>
               {voted && (
                 <span style={{ color: theme?.textColor }}>
-                  {result.percentage}%
+                  {index !== 2 ? result.percentage + '%' : result.votes}
                 </span>
               )}
             </div>
           </div>
         ))}
       </div>
+      {voted && (
+        <div className={styles.votersList}>
+          {!isSecretPoll &&
+            whoVotedWhat.map((vote, i) => (
+              <div key={i}>
+                <h3 style={{ color: theme?.textColor }}>{results[i].text}:</h3>
+                {results[i].votes > 0 ? (
+                  <div className={styles.votersWrapper}>{vote}</div>
+                ) : (
+                  <div className={styles.votersWrapper}>-</div>
+                )}
+              </div>
+            ))}
+        </div>
+      )}
     </article>
   )
 }

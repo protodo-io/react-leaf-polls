@@ -14,7 +14,7 @@ interface ConsensusComplexProps {
   isSecretPoll: boolean
   whoVotedWhat: React.ComponentType<any>[][]
   onVote?(item: Result, results: Result[]): void
-  onClick?(item: Result | undefined): void
+  onClickAfterVote?(item: Result | undefined): void
 }
 
 const ConsensusComplexPoll = ({
@@ -23,7 +23,7 @@ const ConsensusComplexPoll = ({
   theme,
   isVoted,
   onVote,
-  onClick,
+  onClickAfterVote,
   isVotedId,
   consensusReachedAt,
   whoVotedWhat,
@@ -94,7 +94,7 @@ const ConsensusComplexPoll = ({
       }
     } else {
       const selectedResult = results.find((r) => r.id === votedId)
-      onClick?.(selectedResult)
+      onClickAfterVote?.(selectedResult)
     }
   }
 
@@ -138,7 +138,7 @@ const ConsensusComplexPoll = ({
             setVotedId(selectedId)
             const selectedResult = results.find((r) => r.id === selectedId)
             if (selectedResult) {
-              onClick?.(selectedResult)
+              onClickAfterVote?.(selectedResult)
             }
           }}
           onMouseUp={() => {

@@ -30,18 +30,16 @@ function animateWidth(
   }
 }
 
-function animateColor(answer: HTMLElement | null, theme: Theme | undefined) {
-  if (answer && theme) {
-    // animate background color
+function animateColor(answer: HTMLElement | null, color: string | undefined) {
+  console.log('*** KIGA-LOG => answer', answer)
+  console.log('*** KIGA-LOG => color', color)
+  if (answer && color) {
     answer.animate(
-      [
-        { backgroundColor: 'white' },
-        { backgroundColor: theme?.otherColor || '#9F9F9F' }
-      ],
+      [{ backgroundColor: 'white' }, { backgroundColor: color || '#9F9F9F' }],
       200
     )
     Object.assign(answer.style, {
-      backgroundColor: theme?.otherColor || '#9F9F9F'
+      backgroundColor: color || '#9F9F9F'
     })
   }
 }
@@ -65,27 +63,48 @@ function animateAnswers(
     throw new Error('Expected exactly three results')
   }
 
+  const answerColors = [
+    theme?.consensusSimpleLeft,
+    theme?.consensusSimpleMiddle,
+    theme?.consensusSimpleRight
+  ]
+
   for (let i = 0; i < 3; i++) {
     const answer: HTMLElement | null = refs[i].current
-    const percentage: number | undefined = results[i].percentage
+    let percentage: number | undefined = results[i].percentage
+
+    if (i === 2) {
+      // If it's the abstain option
+      percentage = 10
+    }
 
     if (answer && percentage) {
-      animateWidth(answer, percentage)
-      animateColor(answer, theme)
-
-      // set padding to 0
-      // Object.assign(answer.style, { padding: '0' })
-
+      if (i !== 2) animateWidth(answer, percentage)
+      animateColor(answer, answerColors[i])
       disableHover(answer, styles)
     }
   }
 }
 
 function countPercentage(results: Result[]): void {
-  const sum: number = results.reduce((acc, result) => acc + result.votes, 0)
+  const sum: number = results.reduce((acc, result, i) => {
+    if (i !== 2) {
+      // If not the abstain option
+      acc += result.votes
+    }
+    return acc
+  }, 0)
 
-  results.forEach((result) => {
-    result.percentage = Math.round((result.votes / sum) * 100)
+  results.forEach((result, i) => {
+    if (i !== 2) {
+      if (sum === 0) {
+        result.percentage = 0
+      } else {
+        result.percentage = Math.round((result.votes / sum) * 100)
+      }
+    } else {
+      result.percentage = result.votes // For abstain option in consensus poll
+    }
   })
 }
 
