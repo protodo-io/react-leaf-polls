@@ -80,7 +80,7 @@ const ConsensusSimplePoll = ({
       >
         {results.map((result, index) => (
           <div
-            key={index}
+            key={'result-' + index}
             ref={allRefs[index]}
             role='button'
             className={styles.answer_hover + ' ' + styles.answer}
@@ -111,7 +111,7 @@ const ConsensusSimplePoll = ({
         <div className={styles.votersList}>
           {!isSecretPoll &&
             whoVotedWhat.map((vote, i) => (
-              <div key={i}>
+              <div key={'AVATAR-' + i}>
                 <h3 style={{ color: theme?.textColor }}>{results[i].text}:</h3>
                 {results[i].votes > 0 ? (
                   <div className={styles.votersWrapper}>{vote}</div>

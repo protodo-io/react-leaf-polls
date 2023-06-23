@@ -46,8 +46,6 @@ function animateColor(
   answerColor: string | undefined,
   anotherAnswerColor: string | undefined
 ) {
-  console.log('*** KIGA-LOG => answer', answer)
-  console.log('*** KIGA-LOG => color', answerColor)
   if (answer && anotherAnswer && answerColor && answerColor) {
     answer.animate(
       [

@@ -61,9 +61,8 @@ const MultiplePoll = ({
         const textColor =
           result.id === isVotedId ? theme?.answerTextColor : theme?.textColor
         return (
-          <React.Fragment>
+          <React.Fragment key={result.id}>
             <div
-              key={result.id}
               role='button'
               id={'mulAnswer' + result.id}
               className={

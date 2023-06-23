@@ -31,8 +31,6 @@ function animateWidth(
 }
 
 function animateColor(answer: HTMLElement | null, color: string | undefined) {
-  console.log('*** KIGA-LOG => answer', answer)
-  console.log('*** KIGA-LOG => color', color)
   if (answer && color) {
     answer.animate(
       [{ backgroundColor: 'white' }, { backgroundColor: color || '#9F9F9F' }],
