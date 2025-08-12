@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './ConsensusComplexPoll.module.css'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
-import { calculateAveragePosition, countPercentage, manageVote } from './utils'
+import {
+  calculateAveragePosition,
+  countPercentage,
+  manageVote
+} from './ConsensusComplexPollsUtils'
 
 interface ConsensusComplexProps {
   question?: string
@@ -98,7 +102,6 @@ const ConsensusComplexPoll = ({
     }
   }
 
-  // @ts-ignore
   return (
     <article
       className={styles.container}
@@ -157,7 +160,7 @@ const ConsensusComplexPoll = ({
               </span>
 
               {!isSecretPoll &&
-                whoVotedWhat[index].map((Component, i) => (
+                whoVotedWhat[index].map((Component: any, i: number) => (
                   <React.Fragment key={i}>{Component}</React.Fragment>
                 ))}
             </div>
@@ -190,4 +193,5 @@ const ConsensusComplexPoll = ({
   )
 }
 
-export { ConsensusComplexPoll, ConsensusComplexProps }
+export { ConsensusComplexPoll }
+export type { ConsensusComplexProps }

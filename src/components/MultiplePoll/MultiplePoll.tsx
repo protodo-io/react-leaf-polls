@@ -1,6 +1,10 @@
 import React, { createRef, RefObject, useEffect, useRef, useState } from 'react'
 import styles from './MultiplePoll.module.css'
-import { animateAnswers, countPercentage, manageVote } from './utils'
+import {
+  animateAnswers,
+  countPercentage,
+  manageVote
+} from './MultiplePollUtils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -97,7 +101,7 @@ const MultiplePoll = ({
             </div>
             {voted && !isSecretPoll && (
               <div className={styles.whoVotedWhatContainer}>
-                {whoVotedWhat[index].map((Component, i) => (
+                {whoVotedWhat[index].map((Component: any, i: number) => (
                   <React.Fragment key={i}>{Component}</React.Fragment>
                 ))}
               </div>
@@ -109,4 +113,5 @@ const MultiplePoll = ({
   )
 }
 
-export { MultiplePoll, MultiplePollProps }
+export { MultiplePoll }
+export type { MultiplePollProps }

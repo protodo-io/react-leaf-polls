@@ -11,9 +11,9 @@ export interface Theme {
 
   textColor?: string
   backgroundColor?: string
-  alignment?: string
+  alignment?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline'
 
-  consensusSimpleLeft: string
-  consensusSimpleMiddle: string
-  consensusSimpleRight: string
+  consensusSimpleLeft?: string
+  consensusSimpleMiddle?: string
+  consensusSimpleRight?: string
 }

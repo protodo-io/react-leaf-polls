@@ -1,6 +1,10 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react'
 import styles from './ConsensusSimplePoll.module.css'
-import { animateAnswers, countPercentage, manageVote } from './utils'
+import {
+  animateAnswers,
+  countPercentage,
+  manageVote
+} from './ConsensusSimplePollUtils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -110,7 +114,7 @@ const ConsensusSimplePoll = ({
       {voted && (
         <div className={styles.votersList}>
           {!isSecretPoll &&
-            whoVotedWhat.map((vote, i) => (
+            whoVotedWhat.map((vote: any, i: number) => (
               <div key={'AVATAR-' + i}>
                 <h3 style={{ color: theme?.textColor }}>{results[i].text}:</h3>
                 {results[i].votes > 0 ? (
@@ -126,4 +130,5 @@ const ConsensusSimplePoll = ({
   )
 }
 
-export { ConsensusSimplePoll, ConsensusSimplePollProps }
+export { ConsensusSimplePoll }
+export type { ConsensusSimplePollProps }

@@ -94,4 +94,5 @@ const LeafPoll = ({
   }
 }
 
-export { LeafPoll, Result }
+export { LeafPoll }
+export type { Result }

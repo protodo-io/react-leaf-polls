@@ -4,9 +4,9 @@
     "standard",
     "standard-react",
     "plugin:prettier/recommended",
-    "prettier",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:n/recommended"
+    "prettier/standard",
+    "prettier/react",
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "env": {
     "node": true
