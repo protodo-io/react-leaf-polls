@@ -1,0 +1,343 @@
+/* Consensus Simple Poll - Improved Styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.question {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+/* Konsens Status */
+.consensusStatus {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.consensusInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.consensusLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.consensusValue {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+}
+
+.consensusValue.reached {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.consensusValue.notReached {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.consensusResult {
+  font-size: 0.875rem;
+  color: #059669;
+  font-weight: 500;
+}
+
+/* Poll Options Container */
+.inner {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+/* Individual Answer Options */
+.answer {
+  flex: 1;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: none;
+  outline: none;
+}
+
+.answer:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  z-index: 1;
+}
+
+/* Unvoted State - Clean & Minimal */
+.answer.unvoted {
+  background: #f9fafb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.unvotedFavor {
+  background-color: #c4e5d0; /* 15% dunkler als #e6f7ed */
+  border: 2px solid #22c55e;
+}
+
+.unvotedAgainst {
+  background-color: #fdd8d8; /* 15% dunkler als #fef2f2 */
+  border: 2px solid #ef4444;
+}
+
+.unvotedAbstain {
+  background-color: #d1d5db; /* 15% dunkler als #f3f4f6 */
+  border: 2px solid #6b7280;
+}
+
+
+.answer.unvoted:last-child {
+  border-right: none;
+}
+
+.answer.unvoted:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+/* Voted State - Colorful & Lively */
+.answer.voted {
+  position: relative;
+}
+
+.answer.voted[data-option="favor"] {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.answer.voted[data-option="against"] {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.answer.voted[data-option="abstain"] {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+}
+
+/* Consensus Winner Highlight - NUR nach Abstimmung */
+.answer.voted.consensus {
+  box-shadow: 0 0 0 3px #fbbf24, 0 4px 12px rgba(251, 191, 36, 0.3);
+  transform: scale(1.02);
+}
+
+.answer.voted.consensus::before {
+  content: '\1F451';
+  position: absolute;
+  top: -4px;
+  right: 0px;
+  background: #29ff7e;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Answer Content */
+.answerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+
+.answerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.answerLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+.answerStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.voteCount {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.percentage {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Progress Bar */
+.progressBar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Voter Details */
+.votersList {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.votersTitle {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.votersSection {
+  margin-bottom: 1rem;
+}
+
+.votersSection:last-child {
+  margin-bottom: 0;
+}
+
+.votersOptionTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.votersWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 2rem;
+  align-items: center;
+}
+
+.emptyVoters {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .inner {
+    flex-direction: column;
+  }
+
+  .answer {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .answer:last-child {
+    border-bottom: none;
+  }
+
+  .consensusInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .question {
+    font-size: 1.125rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .answer,
+  .progressFill {
+    transition: none;
+  }
+
+  .answer.consensus {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .answer.voted[data-option="favor"] {
+    background: #16a34a;
+  }
+
+  .answer.voted[data-option="against"] {
+    background: #dc2626;
+  }
+
+  .answer.voted[data-option="abstain"] {
+    background: #4b5563;
+  }
+
+  .consensusStatus {
+    border-left-width: 6px;
+  }
+}
+

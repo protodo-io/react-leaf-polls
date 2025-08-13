@@ -1,6 +1,6 @@
 import { RefObject } from 'react'
 import { Result } from '../../types/result'
-import styles from './ConsensusSimplePoll.module.css'
+import styles from './ConsensusSimplePoll.improved.module.css'
 import { Theme } from '../../types/theme'
 
 function manageVote(

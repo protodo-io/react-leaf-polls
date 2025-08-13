@@ -1,6 +1,6 @@
 import { RefObject } from 'react'
 import { Result } from '../../types/result'
-import styles from './BinaryPoll.module.css'
+import styles from './BinaryPoll.improved.module.css'
 import { Theme } from '../../types/theme'
 
 function manageVote(
