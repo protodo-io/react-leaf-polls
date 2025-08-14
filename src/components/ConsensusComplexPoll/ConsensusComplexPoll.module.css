@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative; /* Wichtig für absolute Positionierung der Indikatoren */
 }
 
 .slider {
@@ -106,7 +107,7 @@
   position: absolute;
   width: 5px;
   height: 70px;
-  margin-top: -8px;
+  top: 0; /* Vereinfachte Positionierung */
   background-color: #fff;
   z-index: 5;
   border-width: 2px;
@@ -134,8 +135,8 @@
 .consensusReachedAtIndicator {
   position: absolute;
   width: 5px;
-  height: 6.1rem;
-  margin-top: -1.8rem;
+  height: 70px;
+  top: 0; /* Vereinfachte Positionierung */
   background-color: yellow;
   z-index: 5;
   border-width: 2px;

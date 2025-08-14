@@ -51,38 +51,32 @@ const ConsensusComplexPoll = ({
     }
   }, [])
 
+  // Position MIN-Indikator (Konsens-Schwelle)
   useEffect(() => {
-    const amtResults = results.length
     const sliderOffsetWidth = sliderRef.current?.offsetWidth || 0
-    const sliderWidth = (sliderOffsetWidth * (amtResults - 1)) / amtResults
-    const sliderLeft = sliderRef.current?.offsetLeft || 0
-    const handleWidth = consensusReachedAtIndicatorRef.current?.offsetWidth
-    if (sliderWidth && handleWidth && consensusReachedAtIndicatorRef.current) {
+    const handleWidth = consensusReachedAtIndicatorRef.current?.offsetWidth || 0
+
+    if (sliderOffsetWidth && consensusReachedAtIndicatorRef.current) {
+      // Einfache Berechnung: consensusReachedAt% der Slider-Breite
       const left =
-        (consensusReachedAt / 100) * (sliderWidth - handleWidth) +
-        handleWidth / 2 +
-        sliderLeft // this will convert the percentage to a pixel value relative to the slider's width
+        (consensusReachedAt / 100) * sliderOffsetWidth - handleWidth / 2
       consensusReachedAtIndicatorRef.current.style.left = `${left}px`
     }
-  }, [])
+  }, [consensusReachedAt])
 
+  // Position AVG-Indikator
   useEffect(() => {
     if (isVoted) {
       countPercentage(results)
       const avg = calculateAveragePosition(results)
       const amtResults = results.length
       const sliderOffsetWidth = sliderRef.current?.offsetWidth || 0
-      const sliderWidth = (sliderOffsetWidth * (amtResults - 1)) / amtResults
-      const sliderLeft = sliderRef.current?.offsetLeft || 0
-      const handleWidth = averageIndicatorRef.current?.offsetWidth
+      const handleWidth = averageIndicatorRef.current?.offsetWidth || 0
 
-      if (sliderWidth && handleWidth && averageIndicatorRef.current) {
-        const percentage = ((avg - 1) / (amtResults - 1)) * 100 // this will give you a percentage relative to the 7 positions
-        const left =
-          (percentage / 100) * (sliderWidth - handleWidth) +
-          handleWidth / 2 +
-          0.5 * (sliderWidth / amtResults) +
-          sliderLeft
+      if (sliderOffsetWidth && averageIndicatorRef.current && avg > 0) {
+        // Berechne Prozentposition: avg geht von 1 bis amtResults-1 (ohne "Keine Angabe")
+        const percentage = ((avg - 1) / (amtResults - 2)) * 100 // -2 weil erste Position = 0% und letzte ausgeschlossen
+        const left = (percentage / 100) * sliderOffsetWidth - handleWidth / 2
         averageIndicatorRef.current.style.left = `${left}px`
       }
     }
